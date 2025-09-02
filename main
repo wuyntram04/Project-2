@@ -1,1 +1,46 @@
+#include<iostream>
+#include"input.h"
+using namespace std;
 
+void mainMenu();
+
+
+
+
+
+
+int main()
+{
+	do
+	{
+		system("cls");
+		mainMenu();
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case '1':
+		default: 
+			cout << "\n\tERROR: Invalid Input.";
+			break;
+	
+		}
+
+
+
+	} while (true);
+
+	return EXIT_SUCCESS;
+}
+
+
+void mainMenu()
+{
+	cout << "\n\tCMPR131 Chapter2 - ADT Assignments by Thi Ho, Khang Quach, Thi Ngoc Quynh Pham (09/02/2025)";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\t1> Statistician";
+	cout << "\n\t\t2> Quadratic Expression";
+	cout << "\n\t\t3> Pseudorandom";
+	cout << "\n\t\t4> Rational number";
+	cout << "\n\t" << string(80, char(196));
+	cout << "\n\tx. Exit";
+	cout << "\n\t" << string(80, char(205));
+}
