@@ -1,9 +1,10 @@
 #include<iostream>
 #include"input.h"
+#include"Statistician.h"
 using namespace std;
 
 void mainMenu();
-
+void StatisticianFuntion();
 
 
 
@@ -17,42 +18,12 @@ int main()
 		mainMenu();
 		switch (toupper(inputChar("\n\tOption: ")))
 		{
-		system("cls");
-StatMenu();
+		case '1': StatisticianFuntion();
+			break;
+		default:
+			cout << "\n\tERROR: Invalid Input.";
+			break;
 
-switch (toupper(inputChar("\n\tOption: ")))
-{
-case 'A': 
-{
-	double number = inputDouble("\n\tEnter a double number: ");
-	st.next_number(number);
-}
-break;
-case 'B':
-{
-	cout << "\n\tThe size of a sequence is: \t" << st.length();
-}
-break;
-case 'C':
-{
-	cout << "\n\tThe last number of sequence is: \t" << st.last();
-	break;
-}
-case 'D':
-	cout << "\n\tThe Sum of sequence is: \t" << st.sum();
-	break;
-case 'E':
-	cout << "\n\tThe Mean of sequence is: \t" << st.mean();
-	break;
-case 'F':
-	cout << "\n\tThe smallest number of sequence is: \t" << st.minimum();
-	break;
-case 'G':
-	cout << "\n\tThe largest number of sequence is: \t" << st.maximum();
-	break;
-case 'H': 
-default: cout << "\n\tERROR: Invalid Input";
-	
 		}
 
 
@@ -74,4 +45,70 @@ void mainMenu()
 	cout << "\n\t" << string(80, char(196));
 	cout << "\n\tx. Exit";
 	cout << "\n\t" << string(80, char(205));
+}
+
+void StatMenu()
+{
+	cout << "\n\t1> Statistician Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tA. Insert a number";
+	cout << "\n\t\tB. Size of sequence";
+	cout << "\n\t\tC. Last number of sequence";
+	cout << "\n\t\tD. Sum of sequence";
+	cout << "\n\t\tE. Mean of sequence";
+	cout << "\n\t\tF. Smallest number of sequence";
+	cout << "\n\t\tG. Largest number of sequence";
+	cout << "\n\t\tH. Delete all value";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void StatisticianFuntion()
+{
+	Statistician st;
+	Statistician st1;
+
+	do
+	{
+		system("cls");
+		StatMenu();
+
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case 'A':
+		{
+			double number = inputDouble("\n\tEnter a double number: ");
+			st.next_number(number);
+		}
+		break;
+		case 'B':
+		{
+			cout << "\n\tThe size of a sequence is: \t" << st.length();
+		}
+		break;
+		case 'C':
+		{
+			cout << "\n\tThe last number of sequence is: \t" << st.last();
+			break;
+		}
+		case 'D':
+			cout << "\n\tThe Sum of sequence is: \t" << st.sum();
+			break;
+		case 'E':
+			cout << "\n\tThe Mean of sequence is: \t" << st.mean();
+			break;
+		case 'F':
+			cout << "\n\tThe smallest number of sequence is: \t" << st.minimum();
+			break;
+		case 'G':
+			cout << "\n\tThe largest number of sequence is: \t" << st.maximum();
+			break;
+		case 'H':
+
+		default: cout << "\n\tERROR: Invalid Input";
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+
+	} while (true);
 }
