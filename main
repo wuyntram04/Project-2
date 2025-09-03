@@ -17,10 +17,41 @@ int main()
 		mainMenu();
 		switch (toupper(inputChar("\n\tOption: ")))
 		{
-		case '1':
-		default: 
-			cout << "\n\tERROR: Invalid Input.";
-			break;
+		system("cls");
+StatMenu();
+
+switch (toupper(inputChar("\n\tOption: ")))
+{
+case 'A': 
+{
+	double number = inputDouble("\n\tEnter a double number: ");
+	st.next_number(number);
+}
+break;
+case 'B':
+{
+	cout << "\n\tThe size of a sequence is: \t" << st.length();
+}
+break;
+case 'C':
+{
+	cout << "\n\tThe last number of sequence is: \t" << st.last();
+	break;
+}
+case 'D':
+	cout << "\n\tThe Sum of sequence is: \t" << st.sum();
+	break;
+case 'E':
+	cout << "\n\tThe Mean of sequence is: \t" << st.mean();
+	break;
+case 'F':
+	cout << "\n\tThe smallest number of sequence is: \t" << st.minimum();
+	break;
+case 'G':
+	cout << "\n\tThe largest number of sequence is: \t" << st.maximum();
+	break;
+case 'H': 
+default: cout << "\n\tERROR: Invalid Input";
 	
 		}
 
