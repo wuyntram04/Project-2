@@ -5,15 +5,7 @@
 #include<cmath>
 using namespace std;
 
-struct Roots {
-	// count = -1 → every x is a real root (a=b=c=0)
-	// count =  0 → no real roots
-	// count =  1 → one real root in r1
-	// count =  2 → two real roots r1, r2
-	int count;
-	double r1;
-	double r2;
-};
+
 
 
 class Quadratic
@@ -184,6 +176,7 @@ double Quadratic::LargerRoot() const
 		return r2;
 	}
 }
+
 
 
 
