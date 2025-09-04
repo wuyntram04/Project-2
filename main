@@ -1,10 +1,13 @@
 #include<iostream>
 #include"input.h"
 #include"Statistician.h"
+#include"Rational.h"
 using namespace std;
 
 void mainMenu();
 void StatisticianFuntion();
+void RationalFunction();
+void RationalMenu();
 
 
 
@@ -19,6 +22,8 @@ int main()
 		switch (toupper(inputChar("\n\tOption: ")))
 		{
 		case '1': StatisticianFuntion();
+			break;
+		case'4': RationalFunction();
 			break;
 		default:
 			cout << "\n\tERROR: Invalid Input.";
@@ -59,10 +64,7 @@ void StatMenu()
 	cout << "\n\t\tF. Smallest number of sequence";
 	cout << "\n\t\tG. Largest number of sequence";
 	cout << "\n\t\tH. Delete all value";
-cout << "\n\t\tI. Combine with another sequence";
-cout << "\n\t" << string(80, char(196));
-cout << "\n\t\tR. Return";
-cout << "\n\t" << string(80, char(205));
+	cout << "\n\t" << string(80, char(205));
 }
 
 void StatisticianFuntion()
@@ -75,7 +77,7 @@ void StatisticianFuntion()
 		system("cls");
 		StatMenu();
 
-		try 
+		try
 		{
 			switch (toupper(inputChar("\n\tOption: ")))
 			{
@@ -94,8 +96,8 @@ void StatisticianFuntion()
 			case 'C':
 			{
 				cout << "\n\tThe last number of sequence is: \t" << s.last();
-			}
 				break;
+			}
 			case 'D':
 				cout << "\n\tThe Sum of sequence is: \t" << s.sum();
 				break;
@@ -112,22 +114,11 @@ void StatisticianFuntion()
 				cout << "\n\tReset the value in sequence.";
 				s.reset();
 				break;
-case 'I': 
-{
-	double number1 = inputDouble("\n\tEnter a double number for a new sequence: ");
-	s1.next_number(number1);
-	
-	s = s + s1;
-	cout << "\n\tSequences combined successfully.";
-	break;
-}
-
-case 'R': return;
 			default: cout << "\n\tERROR: Invalid Input";
 			}
 
 		}
-		catch (const runtime_error& e)   
+		catch (const runtime_error& e)
 		{
 			cout << "\n\tERROR: " << e.what();
 		}
@@ -135,4 +126,77 @@ case 'R': return;
 		cout << "\n\n\t";
 		system("pause");
 	} while (true);
+}
+
+void RationalFunction()
+{
+	Rational r;
+	do
+	{
+		system("cls");
+		RationalMenu();
+		try
+		{
+			switch (toupper(inputChar("\n\tOption: ")))
+			{
+			case 'A':
+			{
+				
+
+			}
+			break;
+			case 'B':
+			{
+				
+			}
+			break;
+			case 'C':
+			{
+				
+			}
+			break;
+			case 'D':
+				
+				break;
+			case 'E':
+				
+				break;
+			case 'F':
+				
+				break;
+			case 'G':
+				break;
+			case 'H':
+				
+				break;
+			default: cout << "\n\tERROR: Invalid Input";
+			}
+
+		}
+		catch (const runtime_error& e)
+		{
+			cout << "\n\tERROR: " << e.what();
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+	} while (true);
+
+}
+
+void RationalMenu()
+{
+	cout << "\n\t4> Rational Number Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tA. Enter values of rational number R1";
+	cout << "\n\t\tB. Display R1";
+	cout << "\n\t\tC. Enter values for  rational number R2";
+	cout << "\n\t\tD. Display R2";
+	cout << "\n\t\tE. Multiplication of 2 rational numbers (R1 * R2)";
+	cout << "\n\t\tF. Division of 2 rational numbers (R1 / R2)";
+	cout << "\n\t\tG. Addition of 2 rational numbers (R1 + R2)";
+	cout << "\n\t\tH. Subtraction 2 rational numbers (R1 - R2)";
+	cout << "\n\t\tI. (R1 == R2)";
+	cout << "\n\t\tJ. (R1 < R2)";
+	cout << "\n\t" << string(80, char(205));
 }
