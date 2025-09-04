@@ -109,6 +109,17 @@ void StatisticianFuntion()
 				cout << "\n\tReset the value in sequence.";
 				s.reset();
 				break;
+case 'I': 
+{
+	double number1 = inputDouble("\n\tEnter a double number for a new sequence: ");
+	s1.next_number(number1);
+	
+	s = s + s1;
+	cout << "\n\tSequences combined successfully.";
+	break;
+}
+
+case 'R': return;
 			default: cout << "\n\tERROR: Invalid Input";
 			}
 
