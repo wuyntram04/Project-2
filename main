@@ -72,42 +72,50 @@ void StatisticianFuntion()
 		system("cls");
 		StatMenu();
 
-		switch (toupper(inputChar("\n\tOption: ")))
+		try 
 		{
-		case 'A':
-		{
-			double number = inputDouble("\n\tEnter a double number: ");
-			s.next_number(number);
-			
+			switch (toupper(inputChar("\n\tOption: ")))
+			{
+			case 'A':
+			{
+				double number = inputDouble("\n\tEnter a double number: ");
+				s.next_number(number);
+
+			}
+			break;
+			case 'B':
+			{
+				cout << "\n\tThe size of a sequence is: \t" << s.length();
+			}
+			break;
+			case 'C':
+			{
+				cout << "\n\tThe last number of sequence is: \t" << s.last();
+				break;
+			}
+			case 'D':
+				cout << "\n\tThe Sum of sequence is: \t" << s.sum();
+				break;
+			case 'E':
+				cout << "\n\tThe Mean of sequence is: \t" << s.mean();
+				break;
+			case 'F':
+				cout << "\n\tThe smallest number of sequence is: \t" << s.minimum();
+				break;
+			case 'G':
+				cout << "\n\tThe largest number of sequence is: \t" << s.maximum();
+				break;
+			case 'H':
+				cout << "\n\tReset the value in sequence.";
+				s.reset();
+				break;
+			default: cout << "\n\tERROR: Invalid Input";
+			}
+
 		}
-		break;
-		case 'B':
+		catch (const runtime_error& e)   
 		{
-			cout << "\n\tThe size of a sequence is: \t" << s.length();
-		}
-		break;
-		case 'C':
-		{
-			cout << "\n\tThe last number of sequence is: \t" << s.last();
-			break;
-		}
-		case 'D':
-			cout << "\n\tThe Sum of sequence is: \t" << s.sum();
-			break;
-		case 'E':
-			cout << "\n\tThe Mean of sequence is: \t" << s.mean();
-			break;
-		case 'F':
-			cout << "\n\tThe smallest number of sequence is: \t" << s.minimum();
-			break;
-		case 'G':
-			cout << "\n\tThe largest number of sequence is: \t" << s.maximum();
-			break;
-		case 'H':
-			cout << "\n\tReset the value in sequence: "; 
-			s.reset();
-			break;
-		default: cout << "\n\tERROR: Invalid Input";
+			cout << "\n\tERROR: " << e.what();
 		}
 
 		cout << "\n\n\t";
