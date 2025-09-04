@@ -200,3 +200,72 @@ void RationalMenu()
 	cout << "\n\t\tJ. (R1 < R2)";
 	cout << "\n\t" << string(80, char(205));
 }
+
+void PseudorandomFunction()
+{
+	Pseudorandom p;
+
+	do
+	{
+		system("cls");
+		PseudorandomMenu();
+
+		try
+		{
+			switch (toupper(inputChar("\n\tOption: ")))
+			{
+			case 'A':
+				cout << "\n\tSeed = " << p.getSeed(); break;
+			break;
+			case 'B':
+			{
+				p.setSeed(inputInteger("\n\tEnter the seed: "));
+				break;
+			}
+			break;
+			case 'C':
+			{
+				cout << "\n\tMultiplier = " << p.getMultiplier();
+				break;
+			}
+			case 'D':
+				p.setMultiplier(inputInteger("\n\tEnter the multiplier: "));
+				break;
+			case 'E':
+				cout << "\n\tModulus = " << p.getModulus();
+				break;
+			case 'F':
+				p.setModulus(inputInteger("\n\tEnter the modulus: "));
+				break;
+			case 'G':
+				cout << "\n\tIncrement = " << p.getIncrement();
+			case 'H':
+				p.setModulus(inputInteger("\n\tEnter the increment: "));
+				break;
+			case 'I': cout << "\n\tNext number = " << p.getNextNumber(); break;
+			case 'J': cout << "\n\tNext double [0,1) = " << p.getNextDouble(); break;
+			case 'K':
+			{
+				try {
+					p.runDistributionExperiment(); 
+				}
+				catch (const runtime_error& e) {
+					cout << "\n\tERROR: " << e.what();
+				}
+				break;
+			}
+			case 'R': return; // return to main menu
+			default: cout << "\n\tERROR: Invalid Input"; break;
+			}
+
+		}
+		catch (const runtime_error& e)
+		{
+			cout << "\n\tERROR: " << e.what();
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+	} while (true);
+
+}
