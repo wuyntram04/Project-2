@@ -2,6 +2,7 @@
 #include"input.h"
 #include"Statistician.h"
 #include"Rational.h"
+#include"Quadratic.h"
 using namespace std;
 
 void mainMenu();
@@ -10,6 +11,7 @@ void RationalFunction();
 void RationalMenu();
 void PseudorandomMenu();
 void PseudorandomFunction();
+void QuadraticFunction();
 
 
 
@@ -24,6 +26,8 @@ int main()
 		{
 		case '1': StatisticianFuntion();
 			break;
+		case '2': QuadraticFunction();
+			break;
         case '3': PseudorandomFunction();
 	        break;
 		case'4': RationalFunction();
@@ -34,6 +38,8 @@ int main()
 
 		}
 
+		cout << "\n\n\t";
+		system("pause");
 
 
 	} while (true);
@@ -294,4 +300,84 @@ void PseudorandomFunction()
 		system("pause");
 	} while (true);
 
+}
+
+void QuadraticMenu()
+{
+	cout << "\n\t1> Quadratic Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tD. Display the expression";
+	cout << "\n\t\tA. Set coefficient (a)";
+	cout << "\n\t\tB. Set coefficient (b)";
+	cout << "\n\t\tC. Set coefficient (c)";
+	cout << "\n\t\tE. Get evaluation (x)";
+	cout << "\n\t\tN. Get the number of real roots";
+	cout << "\n\t\tG. Get real root(s)";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tR. Return";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void QuadraticFunction()
+{
+	Quadratic q;
+
+	do
+	{
+		system("cls");
+		QuadraticMenu();
+
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case 'D':
+			q.showFormula();
+			break;
+		case 'A':
+		{
+			q.setA(inputDouble( "\n\tEnter a value and set coefficient (a): "));
+			cout << "\n\tSet a = " << q.getA();
+			break;
+		}
+		case 'B':
+		{
+			q.setB(inputDouble("\n\tEnter a value and set coefficient (b): "));
+			cout << "\n\tSet b = " << q.getB();
+			break;
+		}
+		case 'C':
+		{
+			q.setC(inputDouble("\n\tEnter a value and set coefficient (c): "));
+			cout << "\n\tSet c = " << q.getC();
+			break;
+		}
+		case 'E':
+		{
+			q.setX(inputDouble("\n\tEnter a value of x: "));
+			cout << "\n\tEvaluation result: " << q.quadratic();
+			break;
+		}
+		case 'N':
+		{
+			int num = q.NumRealRoot();
+			if (num == 3)
+			{
+				cout << "\n\tNumber of real roots: Infinity";
+				break;
+			}
+			cout << "\n\tNumber of real roots: " << num;
+			break;
+		}
+		case 'G':
+		{
+
+		}
+		case 'R':
+			return;
+		default: cout << "\n\tERROR: Invalid Input";
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+
+	} while (true);
 }
