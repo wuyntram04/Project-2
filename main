@@ -8,7 +8,8 @@ void mainMenu();
 void StatisticianFuntion();
 void RationalFunction();
 void RationalMenu();
-
+void PseudorandomMenu();
+void PseudorandomFunction();
 
 
 
@@ -23,6 +24,8 @@ int main()
 		{
 		case '1': StatisticianFuntion();
 			break;
+        case '3': PseudorandomFunction();
+	        break;
 		case'4': RationalFunction();
 			break;
 		default:
@@ -200,6 +203,29 @@ void RationalMenu()
 	cout << "\n\t\tJ. (R1 < R2)";
 	cout << "\n\t" << string(80, char(205));
 }
+
+void PseudorandomMenu()
+{
+	cout << "\n\t3> Pseudorandom menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tA. get seed";
+	cout << "\n\t\tB. set seed";
+	cout << "\n\t\tC. get multiplier";
+	cout << "\n\t\tD. set multiplier";
+	cout << "\n\t\tE. get modulus";
+	cout << "\n\t\tF. set modulus";
+	cout << "\n\t\tG. get increment";
+	cout << "\n\t\tH. set increment";
+	cout << "\n\t\tI. get next number";
+	cout << "\n\t\tJ. get indirect next number";
+	cout << "\n\t\tK. run experiment with different values (mutliplier, increment, and modulus)";
+	cout << "\n\t" << string(80, char(196));
+	cout << "\n\t\tR. Return";
+	cout << "\n\t" << string(80, char(205));
+
+
+}
+
 
 void PseudorandomFunction()
 {
