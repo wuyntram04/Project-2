@@ -94,8 +94,8 @@ void StatisticianFuntion()
 			case 'C':
 			{
 				cout << "\n\tThe last number of sequence is: \t" << s.last();
-				break;
 			}
+				break;
 			case 'D':
 				cout << "\n\tThe Sum of sequence is: \t" << s.sum();
 				break;
