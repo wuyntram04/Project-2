@@ -43,7 +43,7 @@ void mainMenu()
 	cout << "\n\t\t3> Pseudorandom";
 	cout << "\n\t\t4> Rational number";
 	cout << "\n\t" << string(80, char(196));
-	cout << "\n\tx. Exit";
+	cout << "\n\t\tx. Exit";
 	cout << "\n\t" << string(80, char(205));
 }
 
@@ -64,8 +64,8 @@ void StatMenu()
 
 void StatisticianFuntion()
 {
-	Statistician st;
-	Statistician st1;
+	Statistician s;
+	Statistician s1;
 
 	do
 	{
@@ -77,38 +77,40 @@ void StatisticianFuntion()
 		case 'A':
 		{
 			double number = inputDouble("\n\tEnter a double number: ");
-			st.next_number(number);
+			s.next_number(number);
+			
 		}
 		break;
 		case 'B':
 		{
-			cout << "\n\tThe size of a sequence is: \t" << st.length();
+			cout << "\n\tThe size of a sequence is: \t" << s.length();
 		}
 		break;
 		case 'C':
 		{
-			cout << "\n\tThe last number of sequence is: \t" << st.last();
+			cout << "\n\tThe last number of sequence is: \t" << s.last();
 			break;
 		}
 		case 'D':
-			cout << "\n\tThe Sum of sequence is: \t" << st.sum();
+			cout << "\n\tThe Sum of sequence is: \t" << s.sum();
 			break;
 		case 'E':
-			cout << "\n\tThe Mean of sequence is: \t" << st.mean();
+			cout << "\n\tThe Mean of sequence is: \t" << s.mean();
 			break;
 		case 'F':
-			cout << "\n\tThe smallest number of sequence is: \t" << st.minimum();
+			cout << "\n\tThe smallest number of sequence is: \t" << s.minimum();
 			break;
 		case 'G':
-			cout << "\n\tThe largest number of sequence is: \t" << st.maximum();
+			cout << "\n\tThe largest number of sequence is: \t" << s.maximum();
 			break;
 		case 'H':
-
+			cout << "\n\tReset the value in sequence: "; 
+			s.reset();
+			break;
 		default: cout << "\n\tERROR: Invalid Input";
 		}
 
 		cout << "\n\n\t";
 		system("pause");
-
 	} while (true);
 }
