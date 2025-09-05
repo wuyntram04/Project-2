@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<stdexcept>
+#include<iomanip>
 using namespace std;
 
 class Pseudorandom
@@ -84,8 +85,8 @@ public:
     //                 updates seed, and returns new number
     int getNextNumber() 
     {
-        unsigned long long temp = static_cast<unsigned long long>(multiplier) * seed + increment;
-        seed = static_cast<unsigned int>(temp % modulus);
+        int temp = multiplier * seed + increment;
+        seed = temp % modulus;   
         return seed;
     }
 
@@ -97,20 +98,7 @@ public:
         getNextNumber();       
         return getNextNumber(); 
     }
-
-    // --- Run experiment ---
-    // Pre-condition: n > 0
-    // Post-condition: Prints n generated numbers to console without changing stored seed
-    void runExperiment(int n) 
-    {
-        cout << "Experiment (" << n << " numbers): ";
-        int temp = seed;
-        for (int i = 0; i < n; i++) {
-            temp = (multiplier * temp + increment) % modulus;
-            cout << temp << " ";
-        }
-        cout << "\n";
-    }
+   
 
     // --- Generate next double in [0,1) ---
     // Pre-condition: modulus > 0
@@ -119,14 +107,20 @@ public:
         return static_cast<double>(getNextNumber()) / static_cast<double>(modulus);
     }
 
-    // --- Run experiment: distribution in 10 intervals (no vector) ---
-    // Pre-condition: modulus > 0; iterations > 0
-    // Post-condition: Prints a table of number occurrences in 10 equal intervals [0,1) 
-    //                 after generating 'iterations' pseudorandom numbers
+    //// --- Run experiment: distribution in 10 intervals (no vector) ---
+    //// Pre-condition: modulus > 0; iterations > 0
+    //// Post-condition: Prints a table of number occurrences in 10 equal intervals [0,1) 
+    ////                 after generating 'iterations' pseudorandom numbers
     void runDistributionExperiment(int iterations = 1000000)
     {
 
         if (iterations <= 0) throw runtime_error("Iterations must be positive.");
+
+        // --- pick random parameters ---
+        srand(time(0));
+        multiplier = rand() % 10000 + 1000;  // random 1000..10999
+        increment = rand() % 5000 + 1000;   // random 1000..5999
+        modulus = rand() % 20000 + 1000;  // random 1000..20999
 
         int counts[10] = { 0 };
 
@@ -138,10 +132,35 @@ public:
             counts[index]++;
         }
 
-        cout << "\nRange\t\tNumber of Occurrences\n";
-        for (int i = 0; i < 10; i++)
-            cout << "[" << i * 0.1 << " ... " << (i + 1) * 0.1 << ")\t" << counts[i] << "\n";
+        cout << "\n\t" << string(80, char(196));
+
+        cout << "\n\t\tmultiplier = " << multiplier
+             << ", increment = " << increment
+             << ", modulus = " << modulus << "\n";
+        cout << "\n\t\tRange\t\t\tNumber of Occurrences\n";
+
+        for (int i = 0; i < 10; i++) {
+            cout << "\t\t["
+                << fixed << setprecision(1) << i * 0.1
+                << " ... "
+                << (i + 1) * 0.1
+                << ")\t\t" << counts[i] << "\n";
+        }
+
+        // --- chi-square uniformity test ---
+        double expected = static_cast<double>(iterations) / 10.0;
+        double chiSq = 0.0;
+        for (int i = 0; i < 10; i++) {
+            double diff = counts[i] - expected;
+            chiSq += (diff * diff) / expected;
+        }
+
+        cout << "\n\t\tWith 10 uniformly distributed rand number in the range[0...1.0),\n";
+        cout << "\t\tthe approximate Gaussian distribution is "
+            << fixed << setprecision(6) << (chiSq / iterations) << ".\n";
     }
+
+    
 
 };
 
