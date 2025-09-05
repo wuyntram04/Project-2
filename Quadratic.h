@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include<iostream>
 #include <stdexcept>
 #include<algorithm>
@@ -86,7 +86,6 @@ int Quadratic::NumRealRoot() const
 	
 	if (a == 0 && b == 0 && c == 0)
 	{
-
 		return 3;
 	}
 	
@@ -136,15 +135,19 @@ double Quadratic::SmallerRoot() const
 		return -b / (2*a);
 	}
 
-	double r1 = (-b + sqrt(D)) / 2 * a;
-	double r2 = (-b - sqrt(D)) / 2 * a;
+	if (D > 0)
+	{
+		double r1 = (-b + sqrt(D)) / (2 * a);
+		double r2 = (-b - sqrt(D)) / (2 * a);
 
-	if (r1 < r2) {
-		return r1;
+		if (r1 < r2) {
+			return r1;
+		}
+		else {
+			return r2;
+		}
 	}
-	else {
-		return r2;
-	}
+	
 }
 
 double Quadratic::LargerRoot() const
@@ -166,8 +169,8 @@ double Quadratic::LargerRoot() const
 		return -b / (2 * a);
 	}
 
-	double r1 = (-b + sqrt(D)) / 2 * a;
-	double r2 = (-b - sqrt(D)) / 2 * a;
+	double r1 = (-b + sqrt(D)) / (2 * a);
+	double r2 = (-b - sqrt(D)) / (2 * a);
 
 	if (r1 > r2) {
 		return r1;
@@ -177,6 +180,25 @@ double Quadratic::LargerRoot() const
 	}
 }
 
+Quadratic operator +(const Quadratic& q1, const Quadratic& q2)
+{
+	Quadratic temp;
+	temp.setA(q1.getA() + q2.getA());
+	temp.setB(q1.getB() + q2.getB());
+	temp.setC(q1.getC() + q2.getC());
+
+	return temp;
+}
+
+Quadratic operator *(double r, const Quadratic& q1)
+{
+	Quadratic temp;
+	temp.setA(q1.getA() * r);
+	temp.setB(q1.getB() * r);
+	temp.setC(q1.getC() * r);
+
+	return temp;
+}
 
 
 
