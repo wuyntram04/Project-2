@@ -5,9 +5,6 @@
 #include<cmath>
 using namespace std;
 
-
-
-
 class Quadratic
 {
 private:
@@ -16,7 +13,7 @@ private:
 	double c;
 	double x;
 public:
-	Quadratic();
+	/*Quadratic();
 	void setA(double coefficientA);
 	void setB(double coefficientB);
 	void setC(double coefficientC);
@@ -25,161 +22,188 @@ public:
 	double getB() const;
 	double getC() const;
 	double getX() const;
-	void showFormula() const {
-		cout << "\n\t"<< a << "x^2 + " << b << "x + " << c << endl;
-	}
-	double quadratic() const {
-		return a * pow(x, 2) + b * x + c;
-	}
-
+	
 	int NumRealRoot() const;
 	double SmallerRoot() const;
-	double LargerRoot() const;
-};
+	double LargerRoot() const;*/
 
-Quadratic::Quadratic() {
-	a = 0;
-	b = 0;
-	c = 0;
-}
-void Quadratic:: setA(double coefficientA) {
-	a = coefficientA;
-}
-
-double Quadratic::getA() const
-{
-	return a;
-}
-
-void Quadratic::setB(double coefficientB)
-{
-	b = coefficientB;
-}
-
-double Quadratic::getB() const
-{
-	return b;
-}
-
-void Quadratic::setC(double coefficientC)
-{
-	c = coefficientC;
-}
-
-double Quadratic::getC() const
-{
-	return c;
-}
-
-void Quadratic::setX(double variable)
-{
-	x = variable;
-}
-
-double Quadratic::getX() const
-{
-	return x;
-}
-
-int Quadratic::NumRealRoot() const 
-{
-	
-	if (a == 0 && b == 0 && c == 0)
-	{
-		return 3;
+	//preCondition: none
+	//postCondition: create a Quadratic object with a = 0, b = 0, c = 0, x = 0
+	Quadratic() {
+		a = 0;
+		b = 0;
+		c = 0;
+		x = 0;
 	}
-	
-	if (a == 0 && b == 0)
+
+	// Pre-condition: coefficientA is a valid double
+	// Post-condition: set a as coefficientA
+	void setA(double coefficientA) {
+		a = coefficientA;
+	 }
+
+	//preCondition: none
+	//postCondition: return a
+	double getA() const
 	{
+		return a;
+	}
+
+	// Pre-condition: coefficientB is a valid double
+	// Post-condition: set b as coefficientB
+	void setB(double coefficientB)
+	{
+		b = coefficientB;
+	}
+
+	//preCondition: none
+	//postCondition: return b
+	double getB() const
+	{
+		return b;
+	}
+
+	// Pre-condition: coefficientC is a valid double
+	// Post-condition: set c as coefficientC
+	void setC(double coefficientC)
+	{
+		c = coefficientC;
+	}
+
+	//preCondition: none
+	//postCondition: return c
+	double getC() const
+	{
+		return c;
+	}
+
+	//preCondition: variable is a double
+	//postCondition: sets x as variable
+	void setX(double variable)
+	{
+		x = variable;
+	}
+
+	//preCondition: none
+	//postCondition: return x
+	double getX() const
+	{
+		return x;
+	}
+
+	//preCondition: coefficients a, b, and c must be finite values
+	//postCondition: return the discriminant value (b^2 - 4ac)
+	double discriminant() const {
+		return b * b - 4 * a * c;
+	}
+	//preCondition: coefficients must be finite values
+	//postCondition: return number of real roots: 
+	// 0 (no solution), 1 (one root), 2 (two roots), or 3 (infinitely many)
+	int NumRealRoot() const
+	{
+
+		if (a == 0 && b == 0 && c == 0) return 3;
+	
+		if (a == 0 && b == 0) return 0;
+
+		if (a == 0) return 1;
+		
+		double D = discriminant();
+		if (D < 0) return 0;
+	
+		if (D == 0) return 1;
+
+		if (D > 0) return 2;
+		
+
 		return 0;
 	}
-	
-	if (a == 0)
+
+	//preCondition: at least one real root exists (NumRealRoot() == 1 or 2)
+	//postCondition: return the smaller root value; 
+	// returns 0 if no valid root or infinitely many solutions
+	double SmallerRoot() const
 	{
-		return 1;
-	}
-	
-	double D = b * b - 4 * a * c;
-	if (D < 0)
-	{
-		return 0;
-	}
+		int n = NumRealRoot();
 
-	if (D == 0)
-	{
-		return 1;
-	}
+		if (n == 0 || n == 3) return 0;
 
-	if (D > 0)
-	{
-		return 2;
-	}
-}
+		if (a == 0)
+		{
+			return -c / b;
+		}
 
-double Quadratic::SmallerRoot() const
-{
-	int n = NumRealRoot();
+		double D = discriminant();
+		if (D < 0) return 0;
 
-	if(n == 0 || n == 3) return 0;
+		if (D == 0)
+		{
+			return -b / (2 * a);
+		}
 
-	if (a == 0)
-	{
-		return -c / b;
-	}
+		if (D > 0)
+		{
+			double r1 = (-b + sqrt(D)) / (2 * a);
+			double r2 = (-b - sqrt(D)) / (2 * a);
 
-	double D = b * b - 4 * a * c;
-	if (D < 0) return 0;
+			if (r1 < r2) {
+				return r1;
+			}
+			else {
+				return r2;
+			}
+		}
 
-	if (D == 0)
-	{
-		return -b / (2*a);
 	}
 
-	if (D > 0)
+	//preCondition: at least one real root exists (NumRealRoot() == 1 or 2)
+	//postCondition: return the larger root value; 
+	// returns 0 if no valid root or infinitely many solutions
+	double LargerRoot() const
 	{
+		int n = NumRealRoot();
+
+		if (n == 0 || n == 3) return 0;
+
+		if (a == 0)
+		{
+			return -c / b;
+		}
+
+		double D = discriminant();
+		if (D < 0) return 0;
+
+		if (D == 0)
+		{
+			return -b / (2 * a);
+		}
+
 		double r1 = (-b + sqrt(D)) / (2 * a);
 		double r2 = (-b - sqrt(D)) / (2 * a);
 
-		if (r1 < r2) {
+		if (r1 > r2) {
 			return r1;
 		}
 		else {
 			return r2;
 		}
 	}
-	
-}
 
-double Quadratic::LargerRoot() const
-{
-	int n = NumRealRoot();
-
-	if (n == 0 || n == 3) return 0;
-
-	if (a == 0)
-	{
-		return -c / b;
+	//preCondition: none
+	//postCondition: print the quadratic equation in standard form
+	void showFormula() const {
+		cout << "\n\t" << a << "x^2 + " << b << "x + " << c << endl;
 	}
 
-	double D = b * b - 4 * a * c;
-	if (D < 0) return 0;
-
-	if (D == 0)
-	{
-		return -b / (2 * a);
+	//preCondition: x must have been set
+	//postCondition: return the value of ax^2 + bx + c
+	double quadratic() const {
+		return a * pow(x, 2) + b * x + c;
 	}
+};
 
-	double r1 = (-b + sqrt(D)) / (2 * a);
-	double r2 = (-b - sqrt(D)) / (2 * a);
-
-	if (r1 > r2) {
-		return r1;
-	}
-	else {
-		return r2;
-	}
-}
-
+//preCondition: both q1 and q2 must be valid Quadratic objects
+//postCondition: return new Quadratic whose coefficients are sum of q1 and q2
 Quadratic operator +(const Quadratic& q1, const Quadratic& q2)
 {
 	Quadratic temp;
@@ -190,6 +214,8 @@ Quadratic operator +(const Quadratic& q1, const Quadratic& q2)
 	return temp;
 }
 
+//preCondition: r must be a finite double; q1 is a valid Quadratic object
+//postCondition: return new Quadratic whose coefficients are q1’s coefficients scaled by r
 Quadratic operator *(double r, const Quadratic& q1)
 {
 	Quadratic temp;
