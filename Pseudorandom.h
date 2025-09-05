@@ -228,7 +228,7 @@ public:
             chiSq += (diff * diff) / expected;
         }*/
 
-        cout << "\n\t\tWith 10 uniformly distributed rand number in the range[0...1.0),\n";
+        cout << "\n\t\tWith 12 uniformly distributed rand number in the range[0...1.0),\n";
         cout << "\t\tthe approximate Gaussian distribution is "
             << fixed << setprecision(6) << getGaussian() << ".\n";
     }
@@ -236,4 +236,5 @@ public:
     
 
 };
+
 
