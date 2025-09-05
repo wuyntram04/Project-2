@@ -1,0 +1,275 @@
+#include<iostream>
+#include"input.h"
+#include"Statistician.h"
+#include"Quadratic.h"
+using namespace std;
+
+void mainMenu();
+void StatisticianFuntion();
+void QuadraticFunction();
+
+
+
+int main()
+{
+	do
+	{
+		system("cls");
+		mainMenu();
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case '1': StatisticianFuntion();
+			break;
+		case '2': QuadraticFunction();
+			break;
+		default:
+			cout << "\n\tERROR: Invalid Input.";
+			break;
+
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+
+	} while (true);
+
+	return EXIT_SUCCESS;
+}
+
+
+void mainMenu()
+{
+	cout << "\n\tCMPR131 Chapter2 - ADT Assignments by Thi Ho, Khang Quach, Thi Ngoc Quynh Pham (09/02/2025)";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\t1> Statistician";
+	cout << "\n\t\t2> Quadratic Expression";
+	cout << "\n\t\t3> Pseudorandom";
+	cout << "\n\t\t4> Rational number";
+	cout << "\n\t" << string(80, char(196));
+	cout << "\n\t\tx. Exit";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void StatMenu()
+{
+	cout << "\n\t1> Statistician Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tA. Insert a number";
+	cout << "\n\t\tB. Size of sequence";
+	cout << "\n\t\tC. Last number of sequence";
+	cout << "\n\t\tD. Sum of sequence";
+	cout << "\n\t\tE. Mean of sequence";
+	cout << "\n\t\tF. Smallest number of sequence";
+	cout << "\n\t\tG. Largest number of sequence";
+	cout << "\n\t\tH. Delete all value";
+	cout << "\n\t\tI. Combine with another sequence";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tR. Return";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void QuadraticMenu()
+{
+	cout << "\n\t1> Quadratic Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tD. Display the expression";
+	cout << "\n\t\tA. Set coefficient (a)";
+	cout << "\n\t\tB. Set coefficient (b)";
+	cout << "\n\t\tC. Set coefficient (c)";
+	cout << "\n\t\tE. Get evaluation (x)";
+	cout << "\n\t\tN. Get the number of real roots";
+	cout << "\n\t\tG. Get real root(s)";
+	cout << "\n\t\tH. Get sum of real root(s)";
+	cout << "\n\t\tI. Get scale real root(s)";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tR. Return";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void StatisticianFuntion()
+{
+	Statistician s;
+	Statistician s1;
+
+	do
+	{
+		system("cls");
+		StatMenu();
+
+		try 
+		{
+			switch (toupper(inputChar("\n\tOption: ")))
+			{
+			case 'A':
+			{
+				double number = inputDouble("\n\tEnter a double number: ");
+				s.next_number(number);
+				break;
+			}
+			case 'B':
+			{
+				cout << "\n\tThe size of a sequence is: \t" << s.length();
+			}
+			break;
+			case 'C':
+			{
+				cout << "\n\tThe last number of sequence is: \t" << s.last();
+				break;
+			}
+			case 'D':
+				cout << "\n\tThe Sum of sequence is: \t" << s.sum();
+				break;
+			case 'E':
+				cout << "\n\tThe Mean of sequence is: \t" << s.mean();
+				break;
+			case 'F':
+				cout << "\n\tThe smallest number of sequence is: \t" << s.minimum();
+				break;
+			case 'G':
+				cout << "\n\tThe largest number of sequence is: \t" << s.maximum();
+				break;
+			case 'H':
+				cout << "\n\tReset the value in sequence.";
+				s.reset();
+				break;
+			case 'I':
+			{
+				double number1 = inputDouble("\n\tEnter a double number for a new sequence: ");
+				s1.next_number(number1);
+				s = s + s1;
+				cout << "\n\tSequences combined successfully.";
+				break;
+			}			
+			case 'R':
+				return;
+			default: cout << "\n\tERROR: Invalid Input";
+			}
+		}
+		catch (const runtime_error& e)   
+		{
+			cout << "\n\tERROR: " << e.what();
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+	} while (true);
+}
+
+void QuadraticFunction()
+{
+	Quadratic q;
+
+	do
+	{
+		system("cls");
+		QuadraticMenu();
+		int num = q.NumRealRoot();
+
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case 'D':
+			q.showFormula();
+			break;
+		case 'A':
+		{
+			q.setA(inputDouble("\n\tEnter a value and set coefficient (a): ", 0, 100));
+			cout << "\n\tSet a = " << q.getA();
+			break;
+		}
+		case 'B':
+		{
+			q.setB(inputDouble("\n\tEnter a value and set coefficient (b): ", 0, 100));
+			cout << "\n\tSet b = " << q.getB();
+			break;
+		}
+		case 'C':
+		{
+			q.setC(inputDouble("\n\tEnter a value and set coefficient (c): ", 0, 100));
+			cout << "\n\tSet c = " << q.getC();
+			break;
+		}
+		case 'E':
+		{
+			q.setX(inputDouble("\n\tEnter a value of x: ", 0, 100));
+			cout << "\n\tEvaluation result: " << q.quadratic();
+			break;
+		}
+		case 'N':
+		{
+			if (num == 3)
+			{
+				cout << "\n\tNumber of real roots: Infinity";
+				break;
+			}
+			cout << "\n\tNumber of real roots: " << num;
+			break;
+		}
+		case 'G':
+		{
+			if (num == 3)
+			{
+				cout << "\n\tEvery value of x is a real root";
+			}
+			else if (num == 0)
+			{
+				cout << "\n\tNo real roots";
+			}
+			else if (num == 1) {
+				cout << "\n\tOne real root: " << q.SmallerRoot();
+			}
+			else {
+				cout << "\n\tTwo real roots:";
+				cout << "\n\tSmaller root = " << q.SmallerRoot();
+				cout << "\n\tLarger  root = " << q.LargerRoot();
+			}
+			break;
+		}
+		case 'H':
+		{
+			Quadratic q1;
+			Quadratic q2;
+			cout << "\n\tPlease enter values for second equation\n\n";
+
+			q1.setA(inputDouble("\n\tEnter a value and set coefficient (a): ", 0, 100));
+			q1.setB(inputDouble("\n\tEnter a value and set coefficient (b): ", 0, 100));
+			q1.setC(inputDouble("\n\tEnter a value and set coefficient (c): ", 0, 100));
+
+			q2 = q + q1;
+			q2.showFormula();
+			char choice = toupper(inputChar("\n\tStore this as the current expression? (Y/N): "));
+			if (choice == 'Y') {
+				q = q2;
+				cout << "\n\tSaved. Current expression is now: ";
+			}
+			else {
+				cout << "\n\tNot saved. Current expression remains: ";
+			}
+
+			q.showFormula();
+
+			break;
+		}
+		case 'I':
+		{
+			double r = inputDouble("\n\tPlease enter a number to multiply each coefficient: ");
+
+			cout << "\n\tBefore scaling: ";
+			q.showFormula();
+
+			q = r * q;
+
+			cout << "\n\tThe expression after scaling: ";
+			q.showFormula();
+
+			break;
+		}
+		case 'R':
+			return;
+		default: cout << "\n\tERROR: Invalid Input";
+		}
+		cout << "\n\n\t";
+		system("pause");
+	}
+	while (true);
+}
+
