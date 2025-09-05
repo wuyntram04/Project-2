@@ -2,6 +2,7 @@
 #include<iostream>
 #include<stdexcept>
 #include<iomanip>
+#include<cmath>
 using namespace std;
 
 class Pseudorandom
@@ -78,6 +79,7 @@ public:
         initialized = true;
     }
 
+    
 
     // --- Generate next number ---
     // Pre-condition: modulus > 0
@@ -90,22 +92,92 @@ public:
         return seed;
     }
 
-    // --- Generate indirect next number (two steps ahead) ---
-    // Pre-condition: modulus > 0
-    // Post-condition: Advances generator twice and returns the second value
-    int getIndirectNextNumber()
-    {
-        getNextNumber();       
-        return getNextNumber(); 
-    }
-   
-
-    // --- Generate next double in [0,1) ---
+    
+   // --- Generate next double in [0,1) ---
     // Pre-condition: modulus > 0
     // Post-condition: Returns next pseudorandom number divided by modulus
-    double getNextDouble() {
-        return static_cast<double>(getNextNumber()) / static_cast<double>(modulus);
+    double getIndirectNextDouble() {
+         return static_cast<double>(getNextNumber()) / static_cast<double>(modulus);
     }
+
+    double getGaussian() {
+        double sum = 0.0;
+        const int size = 12;
+        double arr[size];
+
+        // Generate 12 random doubles in [0,1)
+        for (int i = 0; i < size; i++) 
+        {
+            double val = getIndirectNextDouble();
+
+            while (val >= 1.0) {
+                val = getIndirectNextDouble();
+            }
+
+            arr[i] = val;
+            sum += arr[i];
+            cout << "\t" << fixed << setprecision(2) << arr[i];
+        }
+        selectionSort(arr, size);
+        cout << "\n\n";
+        for (int i = 0; i < size; i++) {
+            cout << "\t" << arr[i];
+        }
+
+        double mean = sum / size;
+
+        int p = size / 2;
+        double left = arr[p - 1];
+        double right = arr[p];
+        double median =  ((left + right) *1.0) / 2.0;
+
+        // Standard Deviation
+        double ssdevia = 0.00;
+        
+        for (int i = 0; i < size; i++)
+        {
+            double devia = arr[i] - mean;
+
+            ssdevia += devia * devia;
+        }
+
+        double denominator;
+        
+        denominator = size * 1.0;
+        
+
+        double sd = sqrt(double(ssdevia / denominator));
+
+        cout << "\n\t" << median;
+        cout << "\n\t" << sum;
+        cout << "\n\t" << sd;
+
+        // Apply formula
+        double s = sum - 6.0;
+        return median + (s * sd);
+    }
+
+    // Selection Sort for an array of doubles
+    void selectionSort(double arr[], int n) {
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            // find index of smallest element in remaining array
+            for (int j = i + 1; j < n; j++) {
+                if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            // swap
+            if (minIndex != i) {
+                double temp = arr[i];
+                arr[i] = arr[minIndex];
+                arr[minIndex] = temp;
+            }
+        }
+    }
+
 
     //// --- Run experiment: distribution in 10 intervals (no vector) ---
     //// Pre-condition: modulus > 0; iterations > 0
@@ -126,7 +198,7 @@ public:
 
         for (int i = 0; i < iterations; i++)
         {
-            double val = getNextDouble();
+            double val = getIndirectNextDouble();
             int index = static_cast<int>(val * 10);
             if (index == 10) index = 9; // fix edge case val == 1.0
             counts[index]++;
@@ -139,7 +211,8 @@ public:
              << ", modulus = " << modulus << "\n";
         cout << "\n\t\tRange\t\t\tNumber of Occurrences\n";
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             cout << "\t\t["
                 << fixed << setprecision(1) << i * 0.1
                 << " ... "
@@ -148,16 +221,16 @@ public:
         }
 
         // --- chi-square uniformity test ---
-        double expected = static_cast<double>(iterations) / 10.0;
+        /*double expected = static_cast<double>(iterations) / 10.0;
         double chiSq = 0.0;
         for (int i = 0; i < 10; i++) {
             double diff = counts[i] - expected;
             chiSq += (diff * diff) / expected;
-        }
+        }*/
 
         cout << "\n\t\tWith 10 uniformly distributed rand number in the range[0...1.0),\n";
         cout << "\t\tthe approximate Gaussian distribution is "
-            << fixed << setprecision(6) << (chiSq / iterations) << ".\n";
+            << fixed << setprecision(6) << getGaussian() << ".\n";
     }
 
     
