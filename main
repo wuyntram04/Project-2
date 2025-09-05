@@ -1,18 +1,19 @@
 #include<iostream>
 #include"input.h"
 #include"Statistician.h"
-#include"Rational.h"
 #include"Quadratic.h"
+#include"Rational.h"
+#include"Pseudorandom.h"
 using namespace std;
 
 void mainMenu();
 void StatisticianFuntion();
+void QuadraticFunction();
+void QuadraticMenu();
 void RationalFunction();
 void RationalMenu();
 void PseudorandomMenu();
 void PseudorandomFunction();
-void QuadraticFunction();
-
 
 
 
@@ -28,10 +29,11 @@ int main()
 			break;
 		case '2': QuadraticFunction();
 			break;
-        case '3': PseudorandomFunction();
-	        break;
-		case'4': RationalFunction();
+		case '3': PseudorandomFunction(); 
 			break;
+		case '4': RationalFunction();
+			break;
+		case 'X': EXIT_SUCCESS;
 		default:
 			cout << "\n\tERROR: Invalid Input.";
 			break;
@@ -40,7 +42,6 @@ int main()
 
 		cout << "\n\n\t";
 		system("pause");
-
 
 	} while (true);
 
@@ -61,6 +62,7 @@ void mainMenu()
 	cout << "\n\t" << string(80, char(205));
 }
 
+// Stattiscian
 void StatMenu()
 {
 	cout << "\n\t1> Statistician Menu";
@@ -73,6 +75,9 @@ void StatMenu()
 	cout << "\n\t\tF. Smallest number of sequence";
 	cout << "\n\t\tG. Largest number of sequence";
 	cout << "\n\t\tH. Delete all value";
+	cout << "\n\t\tI. Combine with another sequence";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tR. Return";
 	cout << "\n\t" << string(80, char(205));
 }
 
@@ -94,19 +99,14 @@ void StatisticianFuntion()
 			{
 				double number = inputDouble("\n\tEnter a double number: ");
 				s.next_number(number);
-
-			}
-			break;
-			case 'B':
-			{
-				cout << "\n\tThe size of a sequence is: \t" << s.length();
-			}
-			break;
-			case 'C':
-			{
-				cout << "\n\tThe last number of sequence is: \t" << s.last();
 				break;
 			}
+			case 'B':
+				cout << "\n\tThe size of a sequence is: \t" << s.length();
+				break;
+			case 'C':
+				cout << "\n\tThe last number of sequence is: \t" << s.last();
+				break;
 			case 'D':
 				cout << "\n\tThe Sum of sequence is: \t" << s.sum();
 				break;
@@ -120,12 +120,23 @@ void StatisticianFuntion()
 				cout << "\n\tThe largest number of sequence is: \t" << s.maximum();
 				break;
 			case 'H':
+			{
 				cout << "\n\tReset the value in sequence.";
 				s.reset();
 				break;
+			}	
+			case 'I':
+			{
+				double number1 = inputDouble("\n\tEnter a double number for a new sequence: ");
+				s1.next_number(number1);
+				s = s + s1;
+				cout << "\n\tSequences combined successfully.";
+				break;
+			}
+			case 'R':
+				return;
 			default: cout << "\n\tERROR: Invalid Input";
 			}
-
 		}
 		catch (const runtime_error& e)
 		{
@@ -137,62 +148,7 @@ void StatisticianFuntion()
 	} while (true);
 }
 
-void RationalFunction()
-{
-	Rational r;
-	do
-	{
-		system("cls");
-		RationalMenu();
-		try
-		{
-			switch (toupper(inputChar("\n\tOption: ")))
-			{
-			case 'A':
-			{
-				
-
-			}
-			break;
-			case 'B':
-			{
-				
-			}
-			break;
-			case 'C':
-			{
-				
-			}
-			break;
-			case 'D':
-				
-				break;
-			case 'E':
-				
-				break;
-			case 'F':
-				
-				break;
-			case 'G':
-				break;
-			case 'H':
-				
-				break;
-			default: cout << "\n\tERROR: Invalid Input";
-			}
-
-		}
-		catch (const runtime_error& e)
-		{
-			cout << "\n\tERROR: " << e.what();
-		}
-
-		cout << "\n\n\t";
-		system("pause");
-	} while (true);
-
-}
-
+// Rational
 void RationalMenu()
 {
 	cout << "\n\t4> Rational Number Menu";
@@ -207,9 +163,248 @@ void RationalMenu()
 	cout << "\n\t\tH. Subtraction 2 rational numbers (R1 - R2)";
 	cout << "\n\t\tI. (R1 == R2)";
 	cout << "\n\t\tJ. (R1 < R2)";
+	cout << "\n\t" << string(80, char(196));
+	cout << "\n\t\tR. Return";
 	cout << "\n\t" << string(80, char(205));
 }
 
+void RationalFunction()
+{
+	Rational R1;
+	Rational R2;
+	bool hasR1 = false;
+	bool hasR2 = false;
+
+	do
+	{
+		system("cls");
+		RationalMenu();
+		try
+		{
+			switch (toupper(inputChar("\n\tOption: ")))
+			{
+			case 'A':
+			{
+				R1.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
+				R1.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
+				break;
+			}
+			case 'B':
+				cout << "\n\tRational number R1: " << R1.getNumerator() << "/" << R1.getDenominator();
+				break;
+			case 'C':
+			{
+				R2.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
+				try
+				{
+					R2.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
+				}
+				catch (const runtime_error& e)
+				{
+					cout << "\n\tERROR: " << e.what();
+				}
+				break;
+			}
+			case 'D':
+				cout << "\n\tRational number R2: " << R2.getNumerator() << "/" << R2.getDenominator();
+				break;
+			case 'E':
+			{
+				Rational R3 = R1 * R2;
+				cout << "\n\tR1 * R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				break;
+			}
+			case 'F':
+			{
+				Rational R3 = R1 / R2;
+				cout << "R1 / R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				break;
+			}
+			case 'G':
+			{
+				Rational R3 = R1 + R2;
+				cout << "R1 + R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				break;
+			}
+			case 'H':
+			{
+				Rational R3 = R1 - R2;
+				cout << "R1 - R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				break;
+			}
+			case 'I':
+			{
+				if (R1 == R2) {
+					cout << "\n\tR1 == R2 : TRUE";
+				}
+				else {
+					cout << "\n\tR1 == R2 : FALSE";
+				}
+				break;
+			}
+			case 'J':
+			{
+				if (R1 < R2) {
+					cout << "\n\tR1 < R2 : TRUE";
+				}
+				else {
+					cout << "\n\tR1 < R2 : FALSE";
+				}
+				break;
+			}
+			case 'R': return;
+			default: cout << "\n\tERROR: Invalid Input";
+			}
+		}
+		catch (const runtime_error& e)
+		{
+			cout << "\n\tERROR: " << e.what();
+		}
+
+		cout << "\n\n\t";
+		system("pause");
+	} while (true);
+
+}
+
+// Quadratic
+void QuadraticMenu()
+{
+	cout << "\n\t1> Quadratic Menu";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tD. Display the expression";
+	cout << "\n\t\tA. Set coefficient (a)";
+	cout << "\n\t\tB. Set coefficient (b)";
+	cout << "\n\t\tC. Set coefficient (c)";
+	cout << "\n\t\tE. Get evaluation (x)";
+	cout << "\n\t\tN. Get the number of real roots";
+	cout << "\n\t\tG. Get real root(s)";
+	cout << "\n\t\tH. Get sum of real root(s)";
+	cout << "\n\t\tI. Get scale real root(s)";
+	cout << "\n\t" << string(80, char(205));
+	cout << "\n\t\tR. Return";
+	cout << "\n\t" << string(80, char(205));
+}
+
+void QuadraticFunction()
+{
+	Quadratic q;
+
+	do
+	{
+		system("cls");
+		QuadraticMenu();
+		int num = q.NumRealRoot();
+
+		switch (toupper(inputChar("\n\tOption: ")))
+		{
+		case 'D':
+			q.showFormula();
+			break;
+		case 'A':
+		{
+			q.setA(inputDouble("\n\tEnter a value and set coefficient (a): ", 0.0, 100.0));
+			cout << "\n\tSet a = " << q.getA();
+			break;
+		}
+		case 'B':
+		{
+			q.setB(inputDouble("\n\tEnter a value and set coefficient (b): ", 0.0, 100.0));
+			cout << "\n\tSet b = " << q.getB();
+			break;
+		}
+		case 'C':
+		{
+			q.setC(inputDouble("\n\tEnter a value and set coefficient (c): ", 0.0, 100.0));
+			cout << "\n\tSet c = " << q.getC();
+			break;
+		}
+		case 'E':
+		{
+			q.setX(inputDouble("\n\tEnter a value of x: ", 0.0, 100.0));
+			cout << "\n\tEvaluation result: " << q.quadratic();
+			break;
+		}
+		case 'N':
+		{
+			if (num == 3)
+			{
+				cout << "\n\tNumber of real roots: Infinity";
+				break;
+			}
+			cout << "\n\tNumber of real roots: " << num;
+			break;
+		}
+		case 'G':
+		{
+			if (num == 3)
+			{
+				cout << "\n\tEvery value of x is a real root";
+			}
+			else if (num == 0)
+			{
+				cout << "\n\tNo real roots";
+			}
+			else if (num == 1) {
+				cout << "\n\tOne real root: " << q.SmallerRoot();
+			}
+			else {
+				cout << "\n\tTwo real roots:";
+				cout << "\n\tSmaller root = " << q.SmallerRoot();
+				cout << "\n\tLarger  root = " << q.LargerRoot();
+			}
+			break;
+		}
+		case 'H':
+		{
+			Quadratic q1;
+			Quadratic q2;
+			cout << "\n\tPlease enter values for second equation\n\n";
+
+			q1.setA(inputDouble("\n\tEnter a value and set coefficient (a): ", 0.0, 100.0));
+			q1.setB(inputDouble("\n\tEnter a value and set coefficient (b): ", 0.0, 100.0));
+			q1.setC(inputDouble("\n\tEnter a value and set coefficient (c): ", 0.0, 100.0));
+
+			q2 = q + q1;
+			q2.showFormula();
+			char choice = toupper(inputChar("\n\tStore this as the current expression? (Y/N): "));
+			if (choice == 'Y') {
+				q = q2;
+				cout << "\n\tSaved. Current expression is now: ";
+			}
+			else {
+				cout << "\n\tNot saved. Current expression remains: ";
+			}
+
+			q.showFormula();
+
+			break;
+		}
+		case 'I':
+		{
+			double r = inputDouble("\n\tPlease enter a number to multiply each coefficient: ");
+
+			cout << "\n\tBefore scaling: ";
+			q.showFormula();
+
+			q = r * q;
+
+			cout << "\n\tThe expression after scaling: ";
+			q.showFormula();
+
+			break;
+		}
+		case 'R':
+			return;
+		default: cout << "\n\tERROR: Invalid Input";
+		}
+		cout << "\n\n\t";
+		system("pause");
+	}
+	while (true);
+}
+
+// Pseudorandom
 void PseudorandomMenu()
 {
 	cout << "\n\t3> Pseudorandom menu";
@@ -232,11 +427,9 @@ void PseudorandomMenu()
 
 }
 
-
 void PseudorandomFunction()
 {
 	Pseudorandom p;
-
 	do
 	{
 		system("cls");
@@ -248,10 +441,10 @@ void PseudorandomFunction()
 			{
 			case 'A':
 				cout << "\n\tSeed = " << p.getSeed(); break;
-			break;
+				break;
 			case 'B':
 			{
-				p.setSeed(inputInteger("\n\tEnter the seed: "));
+				p.setSeed(inputInteger("\n\tEnter the seed: ", true));
 				break;
 			}
 			break;
@@ -261,32 +454,35 @@ void PseudorandomFunction()
 				break;
 			}
 			case 'D':
-				p.setMultiplier(inputInteger("\n\tEnter the multiplier: "));
+				p.setMultiplier(inputInteger("\n\tEnter the multiplier: ", true));
 				break;
 			case 'E':
 				cout << "\n\tModulus = " << p.getModulus();
 				break;
 			case 'F':
-				p.setModulus(inputInteger("\n\tEnter the modulus: "));
+				p.setModulus(inputInteger("\n\tEnter the modulus: ", true));
 				break;
 			case 'G':
 				cout << "\n\tIncrement = " << p.getIncrement();
+				break;
 			case 'H':
-				p.setModulus(inputInteger("\n\tEnter the increment: "));
+				p.setModulus(inputInteger("\n\tEnter the increment: ", true));
 				break;
 			case 'I': cout << "\n\tNext number = " << p.getNextNumber(); break;
-			case 'J': cout << "\n\tNext double [0,1) = " << p.getNextDouble(); break;
+			case 'J': cout << "\n\tIndirect next number: = " << p.getIndirectNextDouble(); break;
 			case 'K':
 			{
-				try {
-					p.runDistributionExperiment(); 
+				try
+				{
+					p.runDistributionExperiment();
 				}
-				catch (const runtime_error& e) {
+				catch (const runtime_error& e)
+				{
 					cout << "\n\tERROR: " << e.what();
 				}
 				break;
 			}
-			case 'R': return; // return to main menu
+			case 'R': return;
 			default: cout << "\n\tERROR: Invalid Input"; break;
 			}
 
@@ -302,82 +498,3 @@ void PseudorandomFunction()
 
 }
 
-void QuadraticMenu()
-{
-	cout << "\n\t1> Quadratic Menu";
-	cout << "\n\t" << string(80, char(205));
-	cout << "\n\t\tD. Display the expression";
-	cout << "\n\t\tA. Set coefficient (a)";
-	cout << "\n\t\tB. Set coefficient (b)";
-	cout << "\n\t\tC. Set coefficient (c)";
-	cout << "\n\t\tE. Get evaluation (x)";
-	cout << "\n\t\tN. Get the number of real roots";
-	cout << "\n\t\tG. Get real root(s)";
-	cout << "\n\t" << string(80, char(205));
-	cout << "\n\t\tR. Return";
-	cout << "\n\t" << string(80, char(205));
-}
-
-void QuadraticFunction()
-{
-	Quadratic q;
-
-	do
-	{
-		system("cls");
-		QuadraticMenu();
-
-		switch (toupper(inputChar("\n\tOption: ")))
-		{
-		case 'D':
-			q.showFormula();
-			break;
-		case 'A':
-		{
-			q.setA(inputDouble( "\n\tEnter a value and set coefficient (a): "));
-			cout << "\n\tSet a = " << q.getA();
-			break;
-		}
-		case 'B':
-		{
-			q.setB(inputDouble("\n\tEnter a value and set coefficient (b): "));
-			cout << "\n\tSet b = " << q.getB();
-			break;
-		}
-		case 'C':
-		{
-			q.setC(inputDouble("\n\tEnter a value and set coefficient (c): "));
-			cout << "\n\tSet c = " << q.getC();
-			break;
-		}
-		case 'E':
-		{
-			q.setX(inputDouble("\n\tEnter a value of x: "));
-			cout << "\n\tEvaluation result: " << q.quadratic();
-			break;
-		}
-		case 'N':
-		{
-			int num = q.NumRealRoot();
-			if (num == 3)
-			{
-				cout << "\n\tNumber of real roots: Infinity";
-				break;
-			}
-			cout << "\n\tNumber of real roots: " << num;
-			break;
-		}
-		case 'G':
-		{
-
-		}
-		case 'R':
-			return;
-		default: cout << "\n\tERROR: Invalid Input";
-		}
-
-		cout << "\n\n\t";
-		system("pause");
-
-	} while (true);
-}
