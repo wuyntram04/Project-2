@@ -172,8 +172,7 @@ void RationalFunction()
 {
 	Rational R1;
 	Rational R2;
-	bool hasR1 = false;
-	bool hasR2 = false;
+	
 
 	do
 	{
@@ -185,53 +184,85 @@ void RationalFunction()
 			{
 			case 'A':
 			{
-				R1.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
-				R1.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
-				break;
-			}
-			case 'B':
-				cout << "\n\tRational number R1: " << R1.getNumerator() << "/" << R1.getDenominator();
-				break;
-			case 'C':
-			{
-				R2.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
+				int n = inputInteger("\n\tEnter the value for the numerator: ");
+				int d = inputInteger("\n\tEnter the value for the denominator: ");
+
+				R1.setNumerator(n);
 				try
 				{
-					R2.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
+					if (d == 0)
+					{
+						throw runtime_error("Zero is not allowed for denominator.");
+					}
+       
+					R1.setDenominator(d);
+					
 				}
-				catch (const runtime_error& e)
+				catch (const exception& e)
 				{
 					cout << "\n\tERROR: " << e.what();
 				}
-				break;
+
+
+	
 			}
+			break;
+			case 'B':
+			{
+				cout << "\n\tRational number R1: " << R1.getNumerator() << "/" << R1.getDenominator();
+			}
+			break;
+			case 'C':
+			{
+				int n = inputInteger("\n\tEnter the value for the numerator: ");
+				int d = inputInteger("\n\tEnter the value for the denominator: ");
+
+				R2.setNumerator(n);
+				try
+				{
+					if (d == 0)
+					{
+						throw runtime_error("Zero is not allowed for denominator.");
+					}
+
+					R2.setDenominator(d);
+
+				}
+				catch (const exception& e)
+				{
+					cout << "\n\tERROR: " << e.what();
+				}
+			}
+			break;
 			case 'D':
+			{
 				cout << "\n\tRational number R2: " << R2.getNumerator() << "/" << R2.getDenominator();
-				break;
+			}
+			break;
 			case 'E':
 			{
 				Rational R3 = R1 * R2;
 				cout << "\n\tR1 * R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
-				break;
 			}
+			break;
 			case 'F':
 			{
 				Rational R3 = R1 / R2;
-				cout << "R1 / R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
-				break;
-			}
+				cout << "\n\tR1 / R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+			} 
+			break;
 			case 'G':
 			{
 				Rational R3 = R1 + R2;
-				cout << "R1 + R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
-				break;
+				cout << "\n\tR1 + R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
 			}
+			break;
 			case 'H':
 			{
 				Rational R3 = R1 - R2;
-				cout << "R1 - R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
-				break;
+				cout << "\n\tR1 - R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
 			}
+			break;
 			case 'I':
 			{
 				if (R1 == R2) {
@@ -240,8 +271,8 @@ void RationalFunction()
 				else {
 					cout << "\n\tR1 == R2 : FALSE";
 				}
-				break;
 			}
+			break;
 			case 'J':
 			{
 				if (R1 < R2) {
@@ -252,17 +283,17 @@ void RationalFunction()
 				}
 				break;
 			}
-			case 'R': return;
 			default: cout << "\n\tERROR: Invalid Input";
 			}
+
 		}
 		catch (const runtime_error& e)
 		{
 			cout << "\n\tERROR: " << e.what();
 		}
 
-		cout << "\n\n\t";
-		system("pause");
+	cout << "\n\n\t";
+	system("pause");
 	} while (true);
 
 }
