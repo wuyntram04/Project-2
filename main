@@ -283,6 +283,9 @@ void RationalFunction()
 				}
 				break;
 			}
+			case 'R':
+				return;
+		
 			default: cout << "\n\tERROR: Invalid Input";
 			}
 
