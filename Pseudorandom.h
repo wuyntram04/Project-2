@@ -100,62 +100,53 @@ public:
          return static_cast<double>(getNextNumber()) / static_cast<double>(modulus);
     }
 
-    double getGaussian() {
-        double sum = 0.0;
-        const int size = 12;
-        double arr[size];
+     double getGaussian() {
+     double sum = 0.0;
+     const int size = 12;
+     double arr[size];
 
-        // Generate 12 random doubles in [0,1)
-        for (int i = 0; i < size; i++) 
-        {
-            double val = getIndirectNextDouble();
+     // Generate 12 random doubles in [0,1)
+     for (int i = 0; i < size; i++)
+     {
+         double val = getIndirectNextDouble();
 
-            while (val >= 1.0) {
-                val = getIndirectNextDouble();
-            }
+         while (val >= 1.0) {
+             val = getIndirectNextDouble();
+         }
+         arr[i] = val;
+         sum += arr[i];
+         setprecision(2);
+     }
+     selectionSort(arr, size);
 
-            arr[i] = val;
-            sum += arr[i];
-            cout << "\t" << fixed << setprecision(2) << arr[i];
-        }
-        selectionSort(arr, size);
-        cout << "\n\n";
-        for (int i = 0; i < size; i++) {
-            cout << "\t" << arr[i];
-        }
+     double mean = sum / size;
 
-        double mean = sum / size;
+     int p = size / 2;
+     double left = arr[p - 1];
+     double right = arr[p];
+     double median = ((left + right) * 1.0) / 2.0;
 
-        int p = size / 2;
-        double left = arr[p - 1];
-        double right = arr[p];
-        double median =  ((left + right) *1.0) / 2.0;
+     // Standard Deviation
+     double ssdevia = 0.00;
 
-        // Standard Deviation
-        double ssdevia = 0.00;
-        
-        for (int i = 0; i < size; i++)
-        {
-            double devia = arr[i] - mean;
+     for (int i = 0; i < size; i++)
+     {
+         double devia = arr[i] - mean;
 
-            ssdevia += devia * devia;
-        }
+         ssdevia += devia * devia;
+     }
 
-        double denominator;
-        
-        denominator = size * 1.0;
-        
+     double denominator;
 
-        double sd = sqrt(double(ssdevia / denominator));
+     denominator = size * 1.0;
 
-        cout << "\n\t" << median;
-        cout << "\n\t" << sum;
-        cout << "\n\t" << sd;
 
-        // Apply formula
-        double s = sum - 6.0;
-        return median + (s * sd);
-    }
+     double sd = sqrt(double(ssdevia / denominator));
+
+     // Apply formula
+     double s = sum - 6.0;
+     return median + (s * sd);
+ }
 
     // Selection Sort for an array of doubles
     void selectionSort(double arr[], int n) {
@@ -236,5 +227,6 @@ public:
     
 
 };
+
 
 
