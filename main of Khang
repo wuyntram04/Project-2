@@ -143,8 +143,7 @@ void RationalFunction()
 {
 	Rational R1;
 	Rational R2;
-	bool hasR1 = false;
-	bool hasR2 = false;
+	
 
 	do
 	{
@@ -156,8 +155,27 @@ void RationalFunction()
 			{
 			case 'A':
 			{
-				R1.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
-				R1.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
+				int n = inputInteger("\n\tEnter the value for the numerator: ");
+				int d = inputInteger("\n\tEnter the value for the denominator: ");
+
+				R1.setNumerator(n);
+				try
+				{
+					if (d == 0)
+					{
+						throw runtime_error("Zero is not allowed for denominator.");
+					}
+       
+					R1.setDenominator(d);
+					
+				}
+				catch (const exception& e)
+				{
+					cout << "\n\tERROR: " << e.what();
+				}
+
+
+	
 			}
 			break;
 			case 'B':
@@ -167,12 +185,21 @@ void RationalFunction()
 			break;
 			case 'C':
 			{
-				R2.setNumerator(inputDouble("\n\tEnter the value for the numerator: "));
+				int n = inputInteger("\n\tEnter the value for the numerator: ");
+				int d = inputInteger("\n\tEnter the value for the denominator: ");
+
+				R2.setNumerator(n);
 				try
 				{
-					R2.setDenominator(inputDouble("\n\tEnter the value for the denominator: "));
+					if (d == 0)
+					{
+						throw runtime_error("Zero is not allowed for denominator.");
+					}
+
+					R2.setDenominator(d);
+
 				}
-				catch (const runtime_error& e)
+				catch (const exception& e)
 				{
 					cout << "\n\tERROR: " << e.what();
 				}
@@ -192,19 +219,19 @@ void RationalFunction()
 			case 'F':
 			{
 				Rational R3 = R1 / R2;
-				cout << "R1 / R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				cout << "\n\tR1 / R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
 			} 
 			break;
 			case 'G':
 			{
 				Rational R3 = R1 + R2;
-				cout << "R1 + R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				cout << "\n\tR1 + R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
 			}
 			break;
 			case 'H':
 			{
 				Rational R3 = R1 - R2;
-				cout << "R1 - R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
+				cout << "\n\tR1 - R2:  " << R3.getNumerator() << "/" << R3.getDenominator();
 			}
 			break;
 			case 'I':
