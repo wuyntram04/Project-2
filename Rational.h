@@ -132,11 +132,11 @@ public:
 	//postCondition: check if the denominator is 0, set numerator as d and simlify
 	void setDenominator(int d)
 	{
-		denominator = d;
 		if (d == 0)
 		{
 			throw runtime_error("Denominator cannot be zero.");
 		}
+		denominator = d;
 		simplify();
 	}
 	
