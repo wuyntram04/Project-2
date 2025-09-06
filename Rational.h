@@ -5,9 +5,9 @@
 using namespace std;
 class Rational
 {
-private: 
-	double numerator;
-	double denominator;
+private:
+	int  numerator;
+	int denominator;
 
 	//preCondition: numerator and denominator must be integer value
 	//postCondition: return the greatest common division value between 2 values
@@ -48,7 +48,7 @@ private:
 		}
 		else
 		{
-			return numerator; 
+			return numerator;
 		}
 	}
 
@@ -76,7 +76,7 @@ private:
 		numerator = numerator / d;
 		denominator = denominator / d;
 
-	
+
 	}
 
 public:
@@ -86,8 +86,8 @@ public:
 	//postCondition: set numerator to 0 and denominator to 1
 	Rational()
 	{
-		numerator = 0.0;
-		denominator = 1.0;
+		numerator = 0;
+		denominator = 1;
 	}
 
 
@@ -115,7 +115,7 @@ public:
 	}
 
 	//preCondition: none
-    //postCondition: return the value of numerator
+	//postCondition: return the value of numerator
 	double getNumerator() const
 	{
 		return numerator;
@@ -132,9 +132,9 @@ public:
 		}
 		simplify();
 	}
-	
+
 	//preCondition: none
-    //postCondition: return the value of denominator
+	//postCondition: return the value of denominator
 	double getDenominator() const
 	{
 		return denominator;
@@ -144,10 +144,10 @@ public:
 	//postCondition: returns true if the objects are equal, otherwise false.
 	friend bool operator==(const Rational& R1, const Rational& R2)
 	{
-		long long R1num = llround(R1.numerator);
-		long long R1den = llround(R1.denominator);
-		long long R2num = llround(R2.numerator);
-		long long R2den = llround(R2.denominator);
+		int R1num = R1.numerator;
+		int  R1den = R1.denominator;
+		int R2num = R2.numerator;
+		int R2den = R2.denominator;
 
 		if (R1num == R2num)
 		{
@@ -165,18 +165,18 @@ public:
 			return false;
 		}
 	}
-	
+
 	//preCondition: both objects must be valid to be compared.
 	//postCondition: returns true if the first object is less than the second object, otherwise false.
 	friend bool operator<(const Rational& R1, const Rational& R2)
 	{
-		long long R1num = llround(R1.numerator);
-		long long R1den = llround(R1.denominator);
-		long long R2num = llround(R2.numerator);
-		long long R2den = llround(R2.denominator);
+		int R1num = R1.numerator;
+		int  R1den = R1.denominator;
+		int R2num = R2.numerator;
+		int R2den = R2.denominator;
 
-		long long left = R1num * R2den;
-		long long right = R2num * R1den;
+		int left = R1num * R2den;
+		int right = R2num * R1den;
 
 		if (left < right)
 		{
@@ -236,4 +236,3 @@ Rational operator - (const Rational& R1, const Rational& R2)
 	temp.setDenominator(R1.getDenominator() * R2.getDenominator());
 	return temp;
 }
-
