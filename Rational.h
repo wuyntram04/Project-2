@@ -140,7 +140,8 @@ public:
 		return denominator;
 	}
 
-
+	//preCondition: both objects must be valid to be compared.
+	//postCondition: returns true if the objects are equal, otherwise false.
 	friend bool operator==(const Rational& R1, const Rational& R2)
 	{
 		long long R1num = llround(R1.numerator);
@@ -165,7 +166,8 @@ public:
 		}
 	}
 	
-	
+	//preCondition: both objects must be valid to be compared.
+	//postCondition: returns true if the first object is less than the second object, otherwise false.
 	friend bool operator<(const Rational& R1, const Rational& R2)
 	{
 		long long R1num = llround(R1.numerator);
@@ -186,12 +188,10 @@ public:
 		}
 	}
 
-	
-
-	
 };
 
-
+//preCondition: both objects must be valid for multiplication.	
+//postCondition: returns the result of the multiplication of the two objects.
 Rational operator * (const Rational& R1, const Rational& R2)
 {
 	Rational temp;
@@ -200,6 +200,8 @@ Rational operator * (const Rational& R1, const Rational& R2)
 	return temp;
 }
 
+//preCondition: both objects must be valid for division and the second object's numerator must not be zero.	
+//postCondition: returns the result of the division of the two objects.
 Rational operator / (const Rational& R1, const Rational& R2)
 {
 	if (llround(R2.getNumerator()) == 0)
@@ -215,6 +217,8 @@ Rational operator / (const Rational& R1, const Rational& R2)
 	}
 }
 
+//preCondition: both objects must be valid for summation.	
+//postCondition: returns the result of the summation of the two objects.
 Rational operator + (const Rational& R1, const Rational& R2)
 {
 	Rational temp;
@@ -223,6 +227,8 @@ Rational operator + (const Rational& R1, const Rational& R2)
 	return temp;
 }
 
+//preCondition: both objects must be valid for subtraction.	
+//postCondition: returns the result of the subtraction of the two objects.
 Rational operator - (const Rational& R1, const Rational& R2)
 {
 	Rational temp;
