@@ -33,7 +33,7 @@ int main()
 			break;
 		case '4': RationalFunction();
 			break;
-		case 'X': EXIT_SUCCESS;
+		case 'X': exit(0);
 		default:
 			cout << "\n\tERROR: Invalid Input.";
 			break;
